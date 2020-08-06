@@ -20,11 +20,11 @@ type pathUrl struct {
 func MapHandler(pathsToUrls map[string]string, fallback http.Handler) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path
-		if dest, ok := pathsToUrls[path]; ok {
+		if dest, ok := pathsToUrls[path]; ok {		//if dest has been found, then ok
 			http.Redirect(w, r, dest, http.StatusFound)
 			return
 		}
-		fallback.ServeHTTP(w, r)
+		fallback.ServeHTTP(w, r)		
 	}
 }
 
@@ -49,23 +49,23 @@ func YAMLHandler(yamlBytes []byte, fallback http.Handler) (http.HandlerFunc, err
 	if err != nil {
 		return nil, err
 	}
-	mappath := buildMap(pathUrls)
+	mappath := buildMap(pathUrls)                 //make map from paths and directly use on maphandler to re-use code
 	return MapHandler(mappath, fallback), nil
 }
 
 func buildMap(pathUrls []pathUrl) map[string]string {
 	mappath := make(map[string]string)
 	for _, pu := range pathUrls {
-		mappath[pu.Path] = pu.URL
+		mappath[pu.Path] = pu.URL   //make map from paths
 	}
 	return mappath
 }
 
 func parseYaml(data []byte) ([]pathUrl, error) {
 	var pathUrls []pathUrl
-	err := yaml.Unmarshal(data, &pathUrls)
+	err := yaml.Unmarshal(data, &pathUrls) 
 	if err != nil {
 		return nil, err
 	}
-	return pathUrls, nil
+	return pathUrls, nil  //we won't get an error here for sure, so can pass nil
 }
