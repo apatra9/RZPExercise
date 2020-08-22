@@ -72,8 +72,9 @@ func querybooster(c *gin.Context) { //tests localhost:8080/winner?id=i_kanganara
 
 func Win(username string, tweetCount string, rtCount string) string {
 	var retweets []anaconda.Tweet
+	var err error
 
-	db, err := gorm.Open("sqlite3", "/tmp/gorm.db") //create init database
+	db, err = gorm.Open("sqlite3", "/tmp/gorm.db") //create init database
 
 	if err != nil {
 		log.Panic(err)
