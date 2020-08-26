@@ -13,11 +13,11 @@ import (
 func TestGothrutweets(t *testing.T) {
 
 	anaconda.SetConsumerKey(os.Getenv("CONSUMERKEY"))
-	anaconda.SetConsumerSecret("CONSUMERSECRET")
+	anaconda.SetConsumerSecret(os.Getenv("CONSUMERSECRET"))
 
 	api := anaconda.NewTwitterApi(
-		"APPKEY",
-		"APPSECRET",
+		os.Getenv("APPKEY"),
+		os.Getenv("APPSECRET"),
 	)
 	tweet, _ := api.GetTweet(1295746102654713856, nil) //1295746102654713856, valid tweet
 
