@@ -111,12 +111,12 @@ func Win(username string, tweetCount string, rtCount string) string {
 	//db.DropTableIfExists(&UserModel{})
 	db.AutoMigrate(&UserModel{})
 
-	anaconda.SetConsumerKey(os.Getenv("CONSUMERKEY")) //declare and get env variables for these
-	anaconda.SetConsumerSecret("CONSUMERSECRET")
+	anaconda.SetConsumerKey(os.Getenv("CONSUMERKEY"))			//get env variables for these
+	anaconda.SetConsumerSecret(os.Getenv("CONSUMERSECRET"))
 
 	api := anaconda.NewTwitterApi(
-		"APPKEY",
-		"APPSECRET",
+		os.Getenv("APPKEY"),
+		os.Getenv("APPSECRET"),
 	)
 
 	v := url.Values{}
